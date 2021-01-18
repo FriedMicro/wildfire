@@ -1,0 +1,44 @@
+#!/bin/bash
+#Wrapper for iptables
+
+SSH_PORT=22
+
+if ! [ $(id -u) = 0 ]
+then
+   echo "This script must be ran as root!"
+   exit 1
+fi
+
+case $1 in
+	-help)
+		echo "Firewall; commands: -ban (ip), -drop (rule), -get (no parameters, returns all rules), -save (no parameters; writes all rules), open-port (port number and type), -flush (closes all except http and ssh)"
+		;;
+	-get)
+		iptables -L --line-numbers
+		;;
+	-drop)
+		iptables -D INPUT $2
+		;;
+	-ban)
+		iptables -I INPUT -s $2 -j DROP
+		;;
+	-save)
+		iptables-save > /etc/iptables/iptables.rules
+		;;
+	-open-port)
+		count=$(iptables -L | grep -Ecv '^$|^Chain |^target')
+		iptables -D INPUT $count
+		iptables -A INPUT -p $3 --dport $2 -j ACCEPT
+		iptables -A INPUT -j DROP
+		;;
+	-flush)
+		iptables -F
+		iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+		iptables -A INPUT -p tcp --dport $SSH_PORT -j ACCEPT
+		iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+		iptables -I INPUT 1 -i lo -j ACCEPT
+		iptables -A INPUT -j DROP
+		;;
+	*)
+		echo "Valid commands are: -get, -drop, -ban, -save, -open-port, -flush"
+esac
