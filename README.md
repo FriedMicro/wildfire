@@ -1,7 +1,7 @@
 # wildfire
 A lightweight wrapper for Linux iptables
 
-This script is intended to http servers. Its goal is to provide a extremely lightweight solution to add management of network traffic without adding extra daemons or user-space programs on the machine for machines which do not need automated network traffic manipulation/
+This script is intended to http servers. Its goal is to provide a extremely lightweight solution to add management of network traffic without adding extra daemons or user-space programs on the machine for machines which do not need automated network traffic manipulation
 
 Commands:
 
