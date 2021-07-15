@@ -1,11 +1,11 @@
-# wildfire
+# Wildfire
 A lightweight wrapper for Linux iptables
 
-This script is intended to http servers. Its goal is to provide a extremely lightweight solution to add management of network traffic without adding extra daemons or user-space programs on the machine for machines which do not need automated network traffic manipulation
+This script is intended to be used for http servers. Its goal is to provide a extremely lightweight solution for management of network traffic without adding extra daemons or user-space programs on the machine if the machine does not need automated network traffic manipulation
 
 Commands:
 
--flush: wipe the iptables config for everything minus ssh and http; this will not disconnect the user
+-flush: wipe the iptables config for everything minus ssh, http, and https; this will not disconnect the user
 
 -help: Display an abreviated version of all command documentation
 
