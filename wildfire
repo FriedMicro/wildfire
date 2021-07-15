@@ -36,6 +36,7 @@ case $1 in
 		iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 		iptables -A INPUT -p tcp --dport $SSH_PORT -j ACCEPT
 		iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+		iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 		iptables -I INPUT 1 -i lo -j ACCEPT
 		iptables -A INPUT -j DROP
 		;;
